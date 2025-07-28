@@ -1,8 +1,9 @@
 # 🧠 Fantasy Football Points Prediction
 
-> A machine learning-based system to forecast Fantasy Premier League (FPL) player points and optimize team selection decisions.
+> A machine learning-based system to forecast [Fantasy Premier League (FPL)](https://fantasy.premierleague.com/)
+ player points and optimize team selection decisions.
 
-🎓 **Master's thesis /  capstone project by Aleksandr Kharkhota**
+🎓 **Master's thesis /  capstone project**
 
 ---
 
@@ -80,8 +81,7 @@ Time-series models like LSTM or Temporal Convolutional Networks (TCNs) require s
 | Validation  | GWs 26–30                        | Used for hyperparameter tuning and early stopping |
 | Testing     | GWs 31–38                        | Final evaluation of model performance         |
 
-Each player sequence might look like:
-[ GW_26, GW_27, GW_28, GW_29, GW_30 ] → Predict GW_31
+Each player sequence might look like:[ GW_26, GW_27, GW_28, GW_29, GW_30 ] → Predict GW_31
 ---
 
 ## 🧱 Project Structure
