@@ -36,6 +36,9 @@ FPL managers must make weekly choices (transfers, captaincy, bench order) with u
 > Note: Dataset is private. If needed, please request supervisor access.
 
 ---
+## Setup
+   * Creating a virtual environment
+   * Running `pip install -r requirements.txt`
 
 ## 🛠 Methods
 
