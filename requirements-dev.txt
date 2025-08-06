@@ -1,0 +1,15 @@
+## Development and optional features
+-r requirements.txt
+
+# Optional deep learning frameworks
+tensorflow==2.12.0  # For optional LSTM
+torch==2.0.1
+torchvision==0.15.2
+
+# Optional preprocessing and tools
+category_encoders==2.6.3
+jupyterlab==3.6.8
+ipython==8.12.2
+shap==0.42.1           # For model explainability
+scikit-optimize==0.9.0 # For hyperparameter tuning (alternative to Optuna)
+mlflow==2.3.2
