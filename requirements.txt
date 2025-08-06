@@ -1,3 +1,38 @@
+# Core
+pandas>=1.5
+numpy>=1.23
+
+# Modeling
+scikit-learn>=1.2
+xgboost>=1.7
+lightgbm>=3.3
+# Optional deep learning frameworks are listed in requirements-optional-ml.txt
+
+# Visualization
+matplotlib>=3.6
+seaborn>=0.12
+
+# App (UI)
+streamlit>=1.24
+streamlit-aggrid>=0.3  # Interactive tables
+streamlit-option-menu  # For sidebar navigation
+
+
+# Utility
+joblib>=1.2
+tqdm>=4.65
+
+# Optional: if using categorical encoding or advanced preprocessing
+category_encoders>=2.6
+
+scipy>=1.10
+
+jupyterlab>=3.6
+ipython>=8.12
+shap>=0.42           # For model explainability
+scikit-optimize>=0.9 # For hyperparameter tuning (alternative to Optuna)
+mlflow>=2.3
+
 ## Core
 pandas==1.5.3
 numpy==1.23.5
@@ -20,3 +55,4 @@ streamlit-option-menu==0.3.6  # For sidebar navigation
 joblib==1.2.0
 tqdm==4.65.0
 scipy==1.11.4
+

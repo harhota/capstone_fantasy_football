@@ -39,6 +39,7 @@ FPL managers must make weekly choices (transfers, captaincy, bench order) with u
 ## Setup
    * Creating a virtual environment
    * Running `pip install -r requirements.txt`
+   * *(Optional)* For LSTM or other neural network models, install extra frameworks with `pip install -r requirements-optional-ml.txt`
 
 ## Docker
 Build the image:
@@ -67,7 +68,7 @@ docker run -p 8501:8501 fpl-app
 - Uses full feature set without aggregation
 
 ### Optional: Time-Series Modeling
-- LSTM 
+- LSTM (requires TensorFlow or PyTorch from `requirements-optional-ml.txt`)
 
 ---
 
