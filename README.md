@@ -41,6 +41,19 @@ FPL managers must make weekly choices (transfers, captaincy, bench order) with u
    * Running `pip install -r requirements.txt`
    * *(Optional)* For LSTM or other neural network models, install extra frameworks with `pip install -r requirements-optional-ml.txt`
 
+## Docker
+Build the image:
+
+```bash
+docker build -t fpl-app .
+```
+
+Run the container:
+
+```bash
+docker run -p 8501:8501 fpl-app
+```
+
 ## 🛠 Methods
 
 ### Baseline
