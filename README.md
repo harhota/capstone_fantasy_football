@@ -40,6 +40,19 @@ FPL managers must make weekly choices (transfers, captaincy, bench order) with u
    * Creating a virtual environment
    * Running `pip install -r requirements.txt`
 
+## Docker
+Build the image:
+
+```bash
+docker build -t fpl-app .
+```
+
+Run the container:
+
+```bash
+docker run -p 8501:8501 fpl-app
+```
+
 ## 🛠 Methods
 
 ### Baseline
