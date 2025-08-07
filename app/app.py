@@ -5,9 +5,15 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from app.api_client import FPLClient
-from app.model import RidgeARModel
-from app.suggestions import suggest_transfers
+import sys
+st.write("sys.path[0]:", sys.path[0])
+
+from api_client    import FPLClient
+from model         import RidgeARModel
+from suggestions   import suggest_transfers
+
+
+
 
 
 def main() -> None:
