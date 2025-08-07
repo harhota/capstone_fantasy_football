@@ -5,9 +5,9 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from .api_client import FPLClient
-from .model import RidgeARModel
-from .suggestions import rank_transfers
+from app.api_client import FPLClient
+from app.model import RidgeARModel
+from app.suggestions import suggest_transfers
 
 
 def main() -> None:
