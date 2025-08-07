@@ -1,6 +1,7 @@
 ## Core
 pandas==1.5.3
 numpy==1.23.5
+requests>=2.31
 
 ## Modeling
 scikit-learn==1.2.2
