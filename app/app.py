@@ -10,7 +10,7 @@ st.write("sys.path[0]:", sys.path[0])
 
 from api_client    import FPLClient
 from model         import RidgeARModel
-from suggestions   import suggest_transfers
+from suggestions   import rank_transfers
 
 
 
