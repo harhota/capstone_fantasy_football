@@ -1,43 +1,64 @@
-"""FPL API client with robust HTTP handling and retries."""
-
-from urllib.parse import urljoin
+"""FPL API client for fetching team and player data."""
+from __future__ import annotations
 
 import requests
-from requests.adapters import HTTPAdapter
-from urllib3.util.retry import Retry
+import logging
+from typing import List, Dict
 
 
 class FPLClient:
-    """Lightweight client for the Fantasy Premier League API."""
+    """Client to interact with the Fantasy Premier League API."""
+    BASE_URL = "https://fantasy.premierleague.com/api"
 
-    BASE_URL = "https://fantasy.premierleague.com/api/"
+    def __init__(self) -> None:
+        self.session = requests.Session()
 
-    def __init__(self, session: requests.Session | None = None, *, retries: int = 3,
-                 backoff_factor: float = 0.3,
-                 status_forcelist: tuple[int, ...] = (500, 502, 503, 504)) -> None:
-        self.session = session or requests.Session()
-
-        retry = Retry(
-            total=retries,
-            read=retries,
-            connect=retries,
-            backoff_factor=backoff_factor,
-            status_forcelist=status_forcelist,
-            allowed_methods=frozenset(["GET"]),
-        )
-        adapter = HTTPAdapter(max_retries=retry)
-        self.session.mount("https://", adapter)
-        self.session.mount("http://", adapter)
-
-    def _get(self, endpoint: str) -> dict:
-        url = urljoin(self.BASE_URL, endpoint)
+    def get_all_players(self) -> List[Dict]:
+        """Fetch all players from the Bootstrap static endpoint."""
+        url = f"{self.BASE_URL}/bootstrap-static/"
         try:
-            response = self.session.get(url, timeout=10)
-            response.raise_for_status()
-            return response.json()
-        except (requests.RequestException, ValueError) as exc:  # noqa: PERF203
-            raise RuntimeError(f"Failed to fetch {url}: {exc}") from exc
+            res = self.session.get(url)
+            res.raise_for_status()
+            data = res.json()
+            players = data.get("elements", [])
+            # Normalize to only required keys: id, name, position, now_cost
+            normalized = []
+            for p in players:
+                normalized.append({
+                    "id": p.get("id"),
+                    "name": p.get("web_name"),
+                    "position": self._element_type(p.get("element_type")),
+                    "cost": p.get("now_cost") / 10.0,
+                })
+            return normalized
+        except Exception as e:
+            logging.error(f"Error fetching all players: {e}")
+            return []
 
-    def get_bootstrap_static(self) -> dict:
-        """Return the main static bootstrap data."""
-        return self._get("bootstrap-static/")
+    def get_team(self, team_id: int) -> List[Dict]:
+        """Fetch a user's current team by ID."""
+        url = f"{self.BASE_URL}/my-team/{team_id}/"
+        try:
+            res = self.session.get(url)
+            res.raise_for_status()
+            data = res.json()
+            picks = data.get("picks", [])
+            normalized = []
+            for pick in picks:
+                element = pick.get("element")
+                # Additional fetch to get player details could be done here
+                normalized.append({
+                    "id": element,
+                    "name": data.get("players", []).get(str(element), {}).get("web_name", ""),
+                    "position": "",  # placeholder, fill from bootstrap data
+                    "cost": pick.get("selling_price", 0) / 10.0,
+                })
+            return normalized
+        except Exception as e:
+            logging.error(f"Error fetching team {team_id}: {e}")
+            return []
+
+    def _element_type(self, et_id: int) -> str:
+        """Map element_type ID to position string."""
+        mapping = {1: "GK", 2: "DEF", 3: "MID", 4: "FWD"}
+        return mapping.get(et_id, "")
